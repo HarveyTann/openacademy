@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api, execptions
+from datetime import timedelta
+from odoo import models, fields, api, exceptions
 
 class Course(models.Model):
     # IMPORTANT. required and defines name for the model
@@ -19,6 +20,27 @@ class Course(models.Model):
     # One2many - virtual relo, inverse of Many2one, behaves as a container of records
     session_ids = fields.One2many('openacademy.session', 'course_id', string="Sesions")
 
+    # re implement copy method whihc allows duplicate of course object
+    def copy(self, default=None):
+        default = dict(default or {})
+
+        copied_count = self.search_count([('name', '=like', u"Copy of {}%".format(self.name))])
+
+        if not copied_count:
+            new_name = u"Copy of {}".format(self.name)
+        else:
+            new_name = u"Copy of {} ({})".format(self.name, copied_count)
+
+        default['name'] = new_name
+        return super(Course, self).copy(default)
+
+    # sql constraints
+    _sql_constraints = [
+        ('name_description_check','CHECK(name != description)',"The title of the course should not be the description"),
+
+        ('name_unique','UNIQUE(name)',"The course title must be unique"),
+    ]
+
 class Session(models.Model):
     _name = 'openacademy.session'
     _description = 'OpenAcademy Session'
@@ -27,16 +49,17 @@ class Session(models.Model):
     # Default values
     start_date = fields.Date(default=fields.Date.today)
     # digits=(6,2) specifies precision of a float number: 6 is total, 2 is number after comma
-    duration = fields.Float(digits=(6,2)), help="Duration in days"
+    duration = fields.Float(digits=(6,2), help="Duration in days")
     seats = fields.Integer(string="Number of seats")
     active = fields.Boolean(default=True)
+    color = fields.Integer()
 
     # Domains on relational fields - list evaluated server-side and can't refer to dynamic values
     # when selecting instructor for a session, (partners with instructor set True) should be visible
     # instructor_id = fields.Many2one('res.parnter', string='Ínstructor', domain=[('instructor', '=', True)])
     
     # Complex Doomains
-    instructor_id = fields.Many2one('res.parnter', string='Ínstructor', domain=['|',('instructor', '=', True), ('category_id.name', 'ilike', 'Teacher')])
+    instructor_id = fields.Many2one('res.partner', string='Instructor', domain=['|',('instructor', '=', True), ('category_id.name', 'ilike', 'Teacher')])
 
     course_id = fields.Many2one('openacademy.course', ondelete='cascade', string='Course', required=True)
 
@@ -44,6 +67,10 @@ class Session(models.Model):
     attendee_ids = fields.Many2many('res.partner', string="Attendees") # built-in model res.patner
 
     taken_seats = fields.Float(string="Taken seats", compute='_taken_seats')
+
+    end_date = fields.Date(string="End Date", store=True, compute='_get_end_date', inverse='_set_end_date')
+
+    attendees_count = fields.Integer(string="Attendees count", compute='_get_attendees_count', store=True)
 
     # percentage of taken seat
     @api.depends('seats', 'attendee_ids')
@@ -53,6 +80,27 @@ class Session(models.Model):
                 r.seats = 0.0
             else:
                 r.seats = 100.0 * len(r.attendee_ids) / r.seats
+
+    @api.depends('start_date', 'duration')
+    def _get_end_date(self):
+        for r in self:
+            if not (r.start_date and r.duration):
+                r.not_date = r.start_date
+            # add duration to start_date
+            duration = timedelta(days=r.duration, seconds=-1)
+            r.end_date = r.start_date + duration
+
+    def _set_end_date(self):
+        for r in self:
+            if not (r.start_date and r.end-date):
+                continue
+            # compute the difference
+            r.duration = (r.end_date - r.start_date).days + 1
+
+    @api.depends('attendee_ids')
+    def _get_attendees_count(self):
+        for r in self:
+            r.attendees_count = len(r.attendee_ids)
 
     # explicit onchange warm invalid values
     @api.onchange('seats', 'attendee_ids')
@@ -71,13 +119,15 @@ class Session(models.Model):
                     'message': "incease seats or remove excess attendees",
                 },
             }
+
     # constraint that checks that the instructor is not present in the attendees of own session
-    @api.constraint('instructor_id', 'attendee_ids')
+    @api.constrains('instructor_id', 'attendee_ids')
     def _check_instructor_not_in_attendees(self):
         for r in self:
             if r.instructor_id and r.instructor_id in r.attendee_ids:
                 raise exceptions.ValidationError("A sessions's instructor can't be an attendee")
     
+
 
 
 # class openacademy(models.Model): 
