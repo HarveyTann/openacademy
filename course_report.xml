@@ -17,7 +17,8 @@
                         <p>Person in charged: <span t-field="o.responsible_id"/></p>
                         <img src="/openacademy/static/photo.jpg" width="50" height="50"/>
                         <!-- <p>$$ <span t-field="o.price"  widget="monetary" options="{'currency_field': 'company_currency_id'}"/></p> -->
-                        <t t-esc="round(o.price,2)"/>
+                        <p>With round off: <t t-esc="round(o.price,2)"/></p>
+                        <p>without:<t t-esc="o.price"/></p>
                         <!-- <h3>Attendees:</h3>
                         <ul>
                             <t t-foreach="doc.attendee_ids" t-as="attendee">
