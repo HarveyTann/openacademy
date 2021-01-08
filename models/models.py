@@ -76,10 +76,11 @@ class Session(models.Model):
     @api.depends('seats', 'attendee_ids')
     def _taken_seats(self):
         for r in self:
-            if not r.seats:
-                r.seats = 0.0
+            if r.attendee_ids and r.seats:
+                r.taken_seats = 100.0 * len(r.attendee_ids) / r.seats
             else:
-                r.seats = 100.0 * len(r.attendee_ids) / r.seats
+                r.taken_seats = 0
+               
 
     @api.depends('start_date', 'duration')
     def _get_end_date(self):
@@ -116,7 +117,7 @@ class Session(models.Model):
             return {
                 'warning': {
                     'title': "Too many attendees",
-                    'message': "incease seats or remove excess attendees",
+                    'message': "increase seats or remove excess attendees",
                 },
             }
 
@@ -126,8 +127,6 @@ class Session(models.Model):
         for r in self:
             if r.instructor_id and r.instructor_id in r.attendee_ids:
                 raise exceptions.ValidationError("A sessions's instructor can't be an attendee")
-    
-
 
 
 # class openacademy(models.Model): 

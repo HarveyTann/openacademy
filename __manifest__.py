@@ -22,20 +22,24 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
+    # 'depends': ['base','board'],
     'depends': ['base'],
 
     # always loaded
     'data': [
-        'demo/demo.xml',
+        # 'demo/demo.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
         # 'views/views.xml',
-        'views/templates.xml',
+        # 'views/templates.xml',
         'views/openacademy.xml',
         'views/partner.xml',
+        # 'views/session_board.xml',
+        'reports.xml',
+        'course_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
-        # 'demo/demo.xml',
+        'demo/demo.xml',
     ],
 }
