@@ -1,0 +1,12 @@
+<odoo>
+    <record id="view_model_name_custom" model="ir.ui.view"> 
+    <field name="name">openacademy.course.view</field>
+        <field name="model">openacademy.course</field> 
+        <field name="inherit_id" ref="openacademy.course-form_view"/> 
+        <field name="arch" type="xml"> 
+            <field name='responsible_id' position='after'>
+                <field name='price'/>
+            </field> 
+        </field>    
+    </record>
+</odoo>

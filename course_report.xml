@@ -1,0 +1,53 @@
+<odoo>
+
+<report
+    id="report_course"
+    model="openacademy.course"
+    string="Course Report"
+    name="openacademy.report_course_view"
+    file="openacademy.report_course"
+    report_type="qweb-pdf" />
+
+    <template id="openacademy.report_course_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h3 t-field="o.name"/>
+                        <p>Person in charged: <span t-field="o.responsible_id"/></p>
+                        <img src="/openacademy/static/photo.jpg" width="50" height="50"/>
+                        <!-- <p>$$ <span t-field="o.price"  widget="monetary" options="{'currency_field': 'company_currency_id'}"/></p> -->
+                        <t t-esc="round(o.price,2)"/>
+                        <!-- <h3>Attendees:</h3>
+                        <ul>
+                            <t t-foreach="doc.attendee_ids" t-as="attendee">
+                                <li><span t-field="attendee.name"/></li>
+                            </t>
+                        </ul> -->
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- <template id="external_header_footer">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="header">
+                        <span t-field="">
+                    </div>
+                    <div class="article o_report_layout_boxed" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                        <t t-call="web.address_layout"/>
+                        <t t-raw="0"/>
+                    </div>
+                    <div class="footer">
+                        <p>Bye</p>
+                    </div>
+                </t>
+            </t>
+        </t>
+      
+    </template> -->
+
+</odoo>
