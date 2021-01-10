@@ -1,0 +1,71 @@
+<odoo>
+
+    <template id="external_layout_custom">
+        <div class="header" style="border-bottom:1px solid #000000;">
+        <p>Header</p>
+            <!-- <div class="text-right row mb8 d-flex justify-content-end" style="color:#000000;font-size:0.95em;padding-right:1em;">
+                <h4 class="mt0" t-field="company.report_header"/>
+                <div name="company_address" class="mb4">
+                    <span class="company_address" t-field="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot; ], &quot;no_marker&quot;: true}"/>
+                    <span><t t-esc="phone"/></span>
+                </div>
+            </div> -->
+        </div>
+
+        <div class="article o_report_layout_boxed">
+            <t t-call="web.address_layout"/>
+            <t t-raw="0"/>
+        </div>
+
+        <div class="footer o_boxed_footer">
+            <div class="text-center">
+                <ul class="list-inline">
+                <p>Footer</p>
+                    <!-- <li t-if="company.phone" class="list-inline-item">Tel: <span><t t-esc="phone"/></span></li> -->
+                </ul>
+                <!-- <div t-field="company.report_footer"/>
+                <div t-if="report_type == 'pdf'">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div> -->
+            </div>
+        </div>
+
+    </template>
+
+    <!-- <template id="external_header" inherit_id="report.external_layout_header">
+       <xpath expr="//div[@class='header']" position="replace">
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-3">
+                    </div>
+                    <div class="col-xs-9 text right" style="margin-top:20px;">
+                        <h5>Course Report</h5>
+                    </div>
+                </div>
+                <div class="row zero_min_height">
+                    <div class="col-xs-12">
+                        <div style="border-bottom: 1px solid black;"/>
+                    </div>
+                </div>
+            </div>
+       </xpath>
+    </template>
+
+    <template id="external_footer" inherit_id="report.external_layout_footer">
+       <xpath expr="//div[@class='footer']" position="replace">
+            <div class="footer">
+                <div class="text-center" style="border-top: ipx solid black;">
+                    <ul class="list-inline">
+                        <li></li>
+
+                        <li></li>
+                        <li></li>
+
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+       </xpath>
+    </template> -->
+</odoo>

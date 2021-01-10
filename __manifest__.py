@@ -35,9 +35,11 @@
         'views/openacademy.xml',
         'views/partner.xml',
         # 'views/session_board.xml',
+        'views/layout.xml',
         'reports.xml',
         'course_report.xml',
         'views/dp_field.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
