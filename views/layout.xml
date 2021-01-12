@@ -6,7 +6,7 @@
                 <h4 class="mt0" t-field="company.report_header"/>
                 <div name="company_address" class="mb4">
                     <span class="company_address" t-field="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot; ], &quot;no_marker&quot;: true}"/>
-                    <span><t t-esc="phone"/></span>
+                    <span><t t-esc="company.phone"/></span>
                 </div>
             </div>
         </div>

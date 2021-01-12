@@ -21,7 +21,7 @@ class Course(models.Model):
     # self.cr, self.uid, self.pool = request.cr, request.uid, request.registry
     # user = self.pool["res.users"].browse(self.cr, self.uid, self.uid)
     # company_id = user.company_id.id
-    # company_id = fields.Many2one('res.company', string='Company',  required=True, default=lambda self: self.env['res.company']._company_default_get('account.invoice'))
+    company_id = fields.Many2one('res.company', string='Company',  required=True, default=lambda self: self.env['res.company']._company_default_get('account.invoice'))
 
 
     # One2many - virtual relo, inverse of Many2one, behaves as a container of records
