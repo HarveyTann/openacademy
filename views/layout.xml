@@ -2,14 +2,13 @@
 
     <template id="external_layout_custom">
         <div class="header" style="border-bottom:1px solid #000000;">
-        <p>Header</p>
-            <!-- <div class="text-right row mb8 d-flex justify-content-end" style="color:#000000;font-size:0.95em;padding-right:1em;">
+            <div class="text-right row mb8 d-flex justify-content-end" style="color:#000000;font-size:0.95em;padding-right:1em;">
                 <h4 class="mt0" t-field="company.report_header"/>
                 <div name="company_address" class="mb4">
                     <span class="company_address" t-field="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot; ], &quot;no_marker&quot;: true}"/>
                     <span><t t-esc="phone"/></span>
                 </div>
-            </div> -->
+            </div>
         </div>
 
         <div class="article o_report_layout_boxed">
@@ -20,8 +19,8 @@
         <div class="footer o_boxed_footer">
             <div class="text-center">
                 <ul class="list-inline">
-                <p>Footer</p>
-                    <!-- <li t-if="company.phone" class="list-inline-item">Tel: <span><t t-esc="phone"/></span></li> -->
+                    <li t-if="company.phone" class="list-inline-item">Tel: <span><t t-esc="company.phone"/></span></li>
+                    <li t-if="company.email" class="list-inline-item">Tel: <span><t t-esc="company.email"/></span></li>
                 </ul>
                 <!-- <div t-field="company.report_footer"/>
                 <div t-if="report_type == 'pdf'">

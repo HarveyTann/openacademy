@@ -17,8 +17,12 @@
                         <h3 t-field="o.name"/>
                         <p>Person in charged: <span t-field="o.responsible_id"/></p>
                         <img src="/openacademy/static/photo.jpg" width="50" height="50"/>
-                        <p>With round off: <t t-esc="round(o.price,2)"/></p>
-                        <p>With round off: <t t-esc="'%.2f'%o.price"/></p>
+                        <!-- <t t-set="company" t-value="self.env.company_id"/> -->
+                        <!-- <t t field name="domain">[('company_id','=',user.company_id)]</t> -->
+                        <t t-set="company" t-value="res_company"/>
+                        <t t-esc="company.name"/>
+                        <p>With round off (with round()): <t t-esc="round(o.price,2)"/></p>
+                        <p>With round off (with %.2f): <t t-esc="'%.2f'%o.price"/></p>
                         <p>without:<t t-esc="o.price"/></p>
                     </div>
                 </t>
