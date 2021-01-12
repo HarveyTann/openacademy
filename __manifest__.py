@@ -23,7 +23,7 @@
 
     # any module necessary for this one to work correctly
     # 'depends': ['base','board'],
-    'depends': ['base'],
+    'depends': ['base','account'],
 
     # always loaded
     'data': [
@@ -39,6 +39,7 @@
         'reports.xml',
         'course_report.xml',
         'views/dp_field.xml',
+        'views/overriding_method.xml',
 
     ],
     # only loaded in demonstration mode
