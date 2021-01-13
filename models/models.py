@@ -48,6 +48,30 @@ class Course(models.Model):
         ('name_unique','UNIQUE(name)',"The course title must be unique"),
     ]
 
+    # siauwei@ozbgroup.com
+    def send_mail_now(self):
+        print("Sending ~~~~ Email !!!!")
+        active_id = self._context
+        print('----------->activeid', active_id )
+        # mail_template = self.env['mail.mail']
+        # mail_template.create({
+        #     'body_html': 'Ni haowdy',
+        #     'subject': 'Hello world',
+        #     'email_from': 'harvey@ozbgroup.com',
+        #     'email_to': 'harvey@ozbgroup.com',
+        # })
+        # will be schedule to send in an hour by default
+        # mail_template.send()
+        # temp_id = self.env.ref('openacademy.email_template_course').id
+        # print(temp_id)
+        # template = self.env['mail.template'].browse(temp_id)
+        # print(template)
+        # template.send_mail(temp_id, force_send=True)
+        temp_id = self.env.ref('openacademy.email_template_course')
+        print(temp_id)
+        print(self.id)
+        temp_id.send_mail(self.id, force_send=True)
+ 
 class Session(models.Model):
     _name = 'openacademy.session'
     _description = 'OpenAcademy Session'

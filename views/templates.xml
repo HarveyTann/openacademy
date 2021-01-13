@@ -1,5 +1,30 @@
 <odoo>
-    <data>
+    <data noupdate="0">
+        <!--Email template -->
+        <record id="email_template_course" model="mail.template">
+            <field name="name">Course: Send by email</field>
+            <!-- <field name="model_id" ref="openacademy.course_tree_view"/> -->
+            <field name="model_id" ref="openacademy.model_openacademy_course"/>
+            <field name="email_from">harvey@ozbgroup.com</field>
+            <field name="email_to">siauwei@ozbgroup.com</field>
+            <field name="subject">Test!</field>
+            <field name="body_html" type="html">
+              <div style="margin: 0px; padding: 0px;">
+                  <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                      Dear ????,
+                      <br /><br />
+                      Here is your course fee details
+
+                      You owe the company $1 !
+                      Please remit payment at your earliest convenience.
+                      <br /><br />
+                      Do not hesitate to contact us if you have any questions.
+                  </p>
+              </div>
+            </field>
+            <!-- <field name="user_signature" eval="False"/> -->
+            <field name="auto_delete" eval="False"/>
+        </record>
 <!--
         <template id="listing">
           <ul>

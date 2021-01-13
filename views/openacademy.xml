@@ -16,7 +16,19 @@
     <menuitem id="menu_ideas" parent="menu_root" name="Ideas" sequence="10"
             action="action_list_ideas"/> -->
 
-     <!-- 
+    <record model="ir.ui.view" id="view_message_form_log">
+        <field name="name">mail.message.form</field>
+        <field name="model">openacademy.course</field>
+        <field name="inherit_id" ref="openacademy.course_tree_view"/>
+        <field name="arch" type="xml">
+            <tree string="Course Tree">
+                <button name="send_mail_now" type="object" string="Send An E-Mail"  class="oe_highlight"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- 
         Form view
         Used to create and edit single records
         root element is <form>, composed of high level 

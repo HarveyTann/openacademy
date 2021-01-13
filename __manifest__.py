@@ -23,7 +23,7 @@
 
     # any module necessary for this one to work correctly
     # 'depends': ['base','board'],
-    'depends': ['base','account'],
+    'depends': ['base','account','mail'],
 
     # always loaded
     'data': [
@@ -31,8 +31,8 @@
         'security/security.xml',
         'security/ir.model.access.csv',
         # 'views/views.xml',
-        # 'views/templates.xml',
         'views/openacademy.xml',
+        'views/templates.xml',
         'views/partner.xml',
         # 'views/session_board.xml',
         'views/layout.xml',
